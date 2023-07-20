@@ -12,13 +12,7 @@ pipeline {
                 
             }
         }
-        stage('build & SonarQube analysis') {
-            agent any
-            steps {
-              withSonarQubeEnv('sonar-sever-8.9.2') {
-                sh 'mvn clean package sonar:sonar'
-            }
-        }
+
     }
 }
 
