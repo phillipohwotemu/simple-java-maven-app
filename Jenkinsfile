@@ -12,6 +12,13 @@ pipeline {
                 
             }
         }
+        stage('code review') {
+            steps {
+                withSonarQubeEnv('sonar-sever-8.9.2') {
+                    sh 'mvn clean package sonar:sonar'
+                }
+            }
+        }
 
     }
 }
