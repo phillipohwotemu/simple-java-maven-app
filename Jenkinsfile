@@ -6,7 +6,7 @@ pipeline {
            maven "maven:3.9.3"
         }
     environment {
-        NEXUS_VERSION = "nexus3"
+        NEXUS_VERSION = "nexus2"
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "http://44.211.151.25:8081/"
         NEXUS_REPOSITORY = "maven-nexus-repo"
