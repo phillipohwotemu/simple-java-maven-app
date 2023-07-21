@@ -21,7 +21,7 @@ pipeline {
         }
         stage('artifact upload') {
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'my-app', classifier: '', file: 'target/pom.xml', type: 'jar']], credentialsId: 'nexus-user-credentials', groupId: 'kloud45', nexusUrl: '44.211.151.25:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-nexus-repo', version: '1.0-SNAPSHOT'
+                nexusArtifactUploader artifacts: [[artifactId: 'my-app', classifier: '', file: 'pom.xml', type: 'jar']], credentialsId: 'nexus-user-credentials', groupId: 'kloud45', nexusUrl: '44.211.151.25:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-nexus-repo', version: '1.0-SNAPSHOT'
             }
         }
 
