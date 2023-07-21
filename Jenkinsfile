@@ -32,7 +32,7 @@ pipeline {
                         nexusArtifactUploader(
                             nexusVersion: NEXUS2,
                             protocol: NEXUS_PROTOCOL,
-                            nexusUrl: 44.211.151.25:8081,
+                            nexusUrl: http://44.211.151.25:8081/,
                             groupId: pom.groupId,
                             version: pom.version,
                             repository: maven-nexus-repo,
