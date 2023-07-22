@@ -23,7 +23,7 @@ pipeline {
 	       steps{
 		        nexusArtifactUploader artifacts: [	
 			     [
-				      artifactId: 'my-app,
+				      artifactId: 'my-app',
 				      classifier: '',
 				      file: 'target/my-app.jar',
 				      type: jar		
