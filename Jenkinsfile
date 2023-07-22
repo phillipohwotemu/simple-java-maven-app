@@ -29,8 +29,7 @@ pipeline {
         }
                 stage ('uplaod artifact') {
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'pom.artifactId', classifier: '', file: 'pom.xml', type: 'jar']], credentialsId: 'Nexus-credentials', groupId: 'pom.groupId', nexusUrl: '35.171.24.101:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-nexus-repo', version: 'pom.version'
-            }
+                nexusArtifactUploader artifacts: [[artifactId: 'my-app', classifier: '', file: 'pom.xml', type: 'jar']], credentialsId: 'Nexus-credentials', groupId: 'in.jenkins-user', nexusUrl: '35.171.24.101:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-nexus-repo', version: 'pom.version'
         }
     }
 }
