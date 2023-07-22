@@ -1,17 +1,17 @@
 node{
     
     stage('Clone repo'){
-        git credentialsId: 'powhotemu', url: 'https://github.com/phillipohwotemu/simple-java-maven-app.git'
+        git credentialsId: 'powhotemu', url: 'https://github.com/phillipohwotemu/maven-web-app.git'
     }
     
     stage('Maven Build'){
-        def mavenHome = tool name: "maven:3.9.3", type: "maven"
+        def mavenHome = tool name: "Maven-3.8.6", type: "maven"
         def mavenCMD = "${mavenHome}/bin/mvn"
         sh "${mavenCMD} clean package"
     }
     
     stage('SonarQube analysis') {       
-        withSonarQubeEnv('sonar-sever-8.9.2') {
+        withSonarQubeEnv('Sonar-Server-7.8') {
        	sh "mvn sonar:sonar"    	
     }
         
@@ -19,18 +19,18 @@ node{
 	steps{
 		nexusArtifactUploader artifacts: [	
 			[
-				artifactId: 'my-app',
+				artifactId: '01-maven-web-app',
 				classifier: '',
-				file: 'target/my-app.jar',
-				type: jar		
+				file: 'target/01-maven-web-app.war',
+				type: war		
 			]	
 		],
 		credentialsId: 'nexus3',
 		groupId: 'in.ashokit',
 		nexusUrl: '',
 		protocol: 'http',
-		repository: 'maven-nexus-repo'
-		version: '4.0.0'
+		repository: 'ashokit-release'
+		version: '1.0.0'
 	}
 }
     
@@ -51,7 +51,4 @@ node{
             kubeconfigId: 'Kube-Config'
         )
     }    
-{
-	
 }
-	
