@@ -1,54 +1,29 @@
-node{
-    
-    stage('Clone repo'){
-        git credentialsId: 'powhotemu', url: 'https://github.com/phillipohwotemu/maven-web-app.git'
-    }
-    
-    stage('Maven Build'){
-        def mavenHome = tool name: "Maven-3.8.6", type: "maven"
-        def mavenCMD = "${mavenHome}/bin/mvn"
-        sh "${mavenCMD} clean package"
-    }
-    
-    stage('SonarQube analysis') {       
-        withSonarQubeEnv('Sonar-Server-7.8') {
-       	sh "mvn sonar:sonar"    	
-    }
-        
-    stage('upload war to nexus'){
-	steps{
-		nexusArtifactUploader artifacts: [	
-			[
-				artifactId: '01-maven-web-app',
-				classifier: '',
-				file: 'target/01-maven-web-app.war',
-				type: war		
-			]	
-		],
-		credentialsId: 'nexus3',
-		groupId: 'in.ashokit',
-		nexusUrl: '',
-		protocol: 'http',
-		repository: 'ashokit-release'
-		version: '1.0.0'
-	}
-}
-    
-    stage('Build Image'){
-        sh 'docker build -t ashokit/mavenwebapp .'
-    }
-    
-    stage('Push Image'){
-        withCredentials([string(credentialsId: 'DOCKER-CREDENTIALS', variable: 'DOCKER_CREDENTIALS')]) {
-            sh 'docker login -u ashokit -p ${DOCKER_CREDENTIALS}'
+
+
+
+pipeline {
+    agent any
+    tools {
+           maven "maven:3.9.3"
         }
-        sh 'docker push ashokit/mavenwebapp'
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'mvn -B -DskipTests clean package' 
+                
+            }
+        }
+        stage('code review') {
+            steps {
+                withSonarQubeEnv('sonar-sever-8.9.2'){
+                     sh 'mvn clean package sonar:sonar'
+                }
+            }
+        }
+        stage ('uplaod artifact') {
+            steps {
+                nexusArtifactUploader artifacts: [[artifactId: 'productcatalogue', classifier: '', file: 'target/productcatalogue', type: 'jar']], credentialsId: 'Nexus-credentials', groupId: 'kloud45', nexusUrl: '54.145.126.153:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'kloud45-snapshot-repository', version: '0.0.1-SNAPSHOT'
+            }
+        }
     }
-    
-    stage('Deploy App'){
-        kubernetesDeploy(
-            configs: 'maven-web-app-deploy.yml',
-            kubeconfigId: 'Kube-Config'
-        )
-    }    
 }
