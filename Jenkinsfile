@@ -27,17 +27,14 @@ pipeline {
                 }
             }
         }
-        stage("Publish to Nexus Repository Manager") {
+                stage ('uplaod artifact') {
             steps {
-                script {
-                    nexusArtifactUploader artifacts: [[artifactId: 'pom.artifactId', classifier: '', file: 'pom.xml', type: 'jar']], credentialsId: 'Nexus-credentials', groupId: 'pom.groupId', nexusUrl: '35.171.24.101:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-nexus-repo', version: 'pom.version'
-
-                    }
-                }
+                nexusArtifactUploader artifacts: [[artifactId: 'pom.artifactId', classifier: '', file: 'pom.xml', type: 'jar']], credentialsId: 'Nexus-credentials', groupId: 'pom.groupId', nexusUrl: '35.171.24.101:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-nexus-repo', version: 'pom.version'
             }
         }
     }
 }
+
 
 
 
