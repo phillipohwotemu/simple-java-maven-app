@@ -20,13 +20,6 @@ pipeline {
                 }
             }
         }
-        stage ('s3 artifat upload') {
-            steps {
-                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
-                     // some block
-                }
-            }
-        }
-         
+
     }
 }
