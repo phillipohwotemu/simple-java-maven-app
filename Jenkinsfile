@@ -22,8 +22,9 @@ pipeline {
         }
         stage ('Upload Artifacts to S3') {
             steps {
-                       withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
-                       // some block
+                      withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+    // some block
+}
               } 
             }
         }
