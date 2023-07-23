@@ -19,11 +19,7 @@ pipeline {
                      sh 'mvn clean package sonar:sonar'
                 }
             }
-        }
-        stage ('uplaod artifact') {
-            steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'productcatalogue', classifier: '', file: 'target/productcatalogue', type: 'jar']], credentialsId: 'Nexus-credentials', groupId: 'kloud45', nexusUrl: '54.145.126.153:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'kloud45-snapshot-repository', version: '0.0.1-SNAPSHOT'
-            }
+        
         }
     }
 }
