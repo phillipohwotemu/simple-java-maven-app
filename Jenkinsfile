@@ -23,8 +23,11 @@ pipeline {
         stage('uplaod to s3') {
             try {
                 withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
-    // some block
-}
+                sh "aws s3 ls"
+                    sh "aws s3 cp addressbook_main/target/my-app.jar s3://cloudyeticicd2023-july-23/"
+              }
+            }  catch(err) {
+                sh "echo error in sending artifacts to s3"
             }
         }
 
