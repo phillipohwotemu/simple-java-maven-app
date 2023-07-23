@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-        stage ('uplaod artifact') {
+        stage ('Upload Artifacts to S3') {
             steps {
                         awsS3Upload(pathStyleAccessEnabled: true, credentialsId: 'aws-jenkins', bucket: 'jenkins-artifat', sourceFile: 'path/to/artifact.zip', targetPath: 'desired/s3/location/')
             }
