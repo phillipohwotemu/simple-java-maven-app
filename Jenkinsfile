@@ -22,12 +22,10 @@ pipeline {
         }
         stage('Deploy to AWS') {
             steps {
-                scripts {
-                      sh 'aws s3 cp my-artifact.zip s3://jenkins-artifat/my-artifact.zip'  // Example command to upload artifact to S3 bucket
-                      sh 'aws cloudformation deploy --template-file my-template.yml --stack-name my-stack'  // Example command to deploy a CloudFormation stack
-                         // Add more AWS CLI commands or SDK calls as needed
-
-                }
+                withCredentials([[$class: 'AwsBucketCredentialsBinding', credentialsId: '', passwordVariable: '22EHuRRVo0q0utELHz1IhMw4SwsMrKwUAjQmnjoS', usernameVariable: 'AKIA2XC2HHDLK2GHGDWR']]) {
+               // some block
+              }
+               
             }
         }
 
