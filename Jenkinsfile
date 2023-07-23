@@ -20,14 +20,6 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to AWS') {
-            steps {
-                withCredentials([[$class: 'AwsBucketCredentialsBinding', credentialsId: '', passwordVariable: '22EHuRRVo0q0utELHz1IhMw4SwsMrKwUAjQmnjoS', usernameVariable: 'AKIA2XC2HHDLK2GHGDWR']]) {
-               // some block
-              }
-               
-            }
-        }
 
     }
 }
