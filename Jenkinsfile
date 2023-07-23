@@ -20,45 +20,10 @@ pipeline {
                 }
             }
         }
-        stage('AWS Activate') {
+        stage ('uplaod artifact') {
             steps {
-                // Install and configure AWS Activate plugin
-                script {
-                     // Install AWS Activate plugin
-                    pluginInstallation('aws-activate@1.0.0')
-
-                    // Configure AWS Activate plugin
-                    configureAWSActivate()
-                }
+                nexusArtifactUploader artifacts: [[artifactId: 'productcatalogue', classifier: '', file: 'target/productcatalogue', type: 'jar']], credentialsId: 'Nexus-credentials', groupId: 'kloud45', nexusUrl: '54.145.126.153:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'kloud45-snapshot-repository', version: '0.0.1-SNAPSHOT'
             }
         }
-
-    }
-}
-
-def pluginInstallation(String plugin) {
-    try {
-        // Check if the plugin is already installed
-        if (!jenkins.model.Jenkins.instance.pluginManager.plugins.find { it.shortName == plugin }) {
-            // Install the plugin
-            jenkins.model.Jenkins.instance.updateCenter.install(jenkins.model.Jenkins.instance.updateCenter.getPlugin(plugin))
-        }
-    }catch (Exception e) {
-        // Handle any exceptions during plugin installation
-        echo "Failed to install plugin: ${plugin}"
-        error(e.toString())
-    }
-}
-def configureAWSActivate() {
-    try {
-        // Configure AWS Activate plugin
-        // Replace the placeholders with your AWS Activate credentials
-        withAWSActivate(credentialsId: 'aws-activate-credentials', awsRegion: 'us-west-2') {
-            // Your AWS Activate steps here
-        }
-    } catch (Exception e) {
-        // Handle any exceptions during AWS Activate configuration
-        echo "Failed to configure AWS Activate plugin"
-        error(e.toString())
     }
 }
