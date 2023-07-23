@@ -19,7 +19,11 @@ pipeline {
                      sh 'mvn clean package sonar:sonar'
                 }
             }
-        {
-                
-    } 
-{
+        }
+        stage ('uplaod artifact') {
+            steps {
+                        awsS3Upload(pathStyleAccessEnabled: true, credentialsId: 'aws-jenkins', bucket: 'jenkins-artifat', sourceFile: 'path/to/artifact.zip', targetPath: 'desired/s3/location/')
+            }
+        }
+    }
+}
