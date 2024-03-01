@@ -6,11 +6,6 @@ pipeline {
         maven 'mvn:3.5.2'
     }
 
-    environment {
-        // Define the Maven options; for example, setting the home for Maven, specifying custom settings.xml, etc.
-        // MAVEN_OPTS = '-Dmaven.repo.local=.m2/repository'
-    }
-
     stages {
         stage('Initialize') {
             steps {
