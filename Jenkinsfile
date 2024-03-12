@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'mvn:3.5.2' // Ensure 'M3' matches the Maven version configured in your Jenkins Global Tool Configuration
+        maven 'mvn:3.5.2' // Ensure 'mvn:3.5.2' matches the Maven version configured in your Jenkins Global Tool Configuration
     }
 
     stages {
